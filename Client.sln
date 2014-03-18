@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Client\Client.vcproj", "{D8AF9B3C-245E-4A8F-A973-39CC117230EC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pubwinServer", "..\pubwinServer\pubwinServer\pubwinServer.vcproj", "{77C90159-7BF6-437D-98AA-3E1FAE4443A4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ServerManager", "ServerManager\ServerManager.vcproj", "{3603EFB8-3780-4AA2-9A0B-3AC1AD0D45BE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D8AF9B3C-245E-4A8F-A973-39CC117230EC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D8AF9B3C-245E-4A8F-A973-39CC117230EC}.Debug|Win32.Build.0 = Debug|Win32
+		{D8AF9B3C-245E-4A8F-A973-39CC117230EC}.Release|Win32.ActiveCfg = Release|Win32
+		{D8AF9B3C-245E-4A8F-A973-39CC117230EC}.Release|Win32.Build.0 = Release|Win32
+		{77C90159-7BF6-437D-98AA-3E1FAE4443A4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{77C90159-7BF6-437D-98AA-3E1FAE4443A4}.Debug|Win32.Build.0 = Debug|Win32
+		{77C90159-7BF6-437D-98AA-3E1FAE4443A4}.Release|Win32.ActiveCfg = Release|Win32
+		{77C90159-7BF6-437D-98AA-3E1FAE4443A4}.Release|Win32.Build.0 = Release|Win32
+		{3603EFB8-3780-4AA2-9A0B-3AC1AD0D45BE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3603EFB8-3780-4AA2-9A0B-3AC1AD0D45BE}.Debug|Win32.Build.0 = Debug|Win32
+		{3603EFB8-3780-4AA2-9A0B-3AC1AD0D45BE}.Release|Win32.ActiveCfg = Release|Win32
+		{3603EFB8-3780-4AA2-9A0B-3AC1AD0D45BE}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
