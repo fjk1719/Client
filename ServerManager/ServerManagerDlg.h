@@ -29,4 +29,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedBtnRestartpubserver();
+	afx_msg void OnBnClickedBbtnRestartxsserver();
+	afx_msg void OnBnClickedBtnRestartxsclient();
 };

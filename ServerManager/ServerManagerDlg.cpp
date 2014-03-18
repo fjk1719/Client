@@ -31,6 +31,8 @@ BEGIN_MESSAGE_MAP(CServerManagerDlg, CDialog)
 	ON_WM_QUERYDRAGICON()
 	//}}AFX_MSG_MAP
 	ON_BN_CLICKED(IDC_BTN_RESTARTPUBSERVER, &CServerManagerDlg::OnBnClickedBtnRestartpubserver)
+	ON_BN_CLICKED(IDC_BBTN_RESTARTXSSERVER, &CServerManagerDlg::OnBnClickedBbtnRestartxsserver)
+	ON_BN_CLICKED(IDC_BTN_RESTARTXSCLIENT, &CServerManagerDlg::OnBnClickedBtnRestartxsclient)
 END_MESSAGE_MAP()
 
 
@@ -105,8 +107,9 @@ void CServerManagerDlg::OnBnClickedBtnRestartpubserver()
 		return ;
 	}
 	::GetPrivateProfileString(_T("server"),_T("serverIp"),NULL,str_pubwin_server_ip.GetBufferSetLength(MAX_PATH+1),MAX_PATH,str_Current_Pathfile);
-	if (str_pubwin_server_ip.IsEmpty())
+	if (str_pubwin_server_ip== "")
 	{
+		::WritePrivateProfileString(_T("server"),_T("serverIp"),_T("10.30.9.43"),str_Current_Pathfile);
 		::MessageBox(NULL,_T("配置文件读取失败"),NULL,MB_OK);
 		return ;
 	}
@@ -160,6 +163,161 @@ void CServerManagerDlg::OnBnClickedBtnRestartpubserver()
 
 
 	}
+	closesocket(server);
 	return ;
 
+}
+//xs
+void CServerManagerDlg::OnBnClickedBbtnRestartxsserver()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	SetDlgItemText(IDC_EDIT1,"");
+	
+	CString str_pubwin_server_ip;
+	CString str_Current_Pathfile;
+	GetModuleFileName(NULL,str_Current_Pathfile.GetBufferSetLength(MAX_PATH+1),MAX_PATH);
+	str_Current_Pathfile=str_Current_Pathfile.Left(str_Current_Pathfile.ReverseFind('\\'))+_T("\\config.ini");
+
+	if (!PathFileExists(str_Current_Pathfile))
+	{
+		::MessageBox(NULL,_T("配置文件不存在已经重新生成,请检查配置信息是否正确!!! 程序退出"),NULL,MB_OK|MB_ICONERROR);
+		::WritePrivateProfileString(_T("XSserver"),_T("XSserverIp"),_T("10.30.9.45"),str_Current_Pathfile);
+		return ;
+	}
+	::GetPrivateProfileString(_T("XSserver"),_T("XSserverIp"),NULL,str_pubwin_server_ip.GetBufferSetLength(MAX_PATH+1),MAX_PATH,str_Current_Pathfile);
+	if (str_pubwin_server_ip=="")
+	{
+		::WritePrivateProfileString(_T("XSserver"),_T("XSserverIp"),_T("10.30.9.45"),str_Current_Pathfile);
+		::MessageBox(NULL,_T("配置文件读取失败"),NULL,MB_OK);
+		return ;
+	}
+	WSADATA wsadata;
+	WORD ver=MAKEWORD(2,2);
+	WSAStartup(ver,&wsadata);
+	SOCKET server;
+	server =socket(AF_INET,SOCK_STREAM,0);
+	SOCKADDR_IN serveraddr;
+	serveraddr.sin_family=AF_INET;
+	serveraddr.sin_port=htons(12345);
+
+	serveraddr.sin_addr.S_un.S_addr=inet_addr(str_pubwin_server_ip.GetBuffer());
+	if(connect(server, (SOCKADDR*)&serveraddr, sizeof(serveraddr))<0)
+	{
+		::MessageBox(NULL,_T("套字节初始化失败"),NULL,MB_OK);
+		return ;
+	}
+	else
+	{
+		char Buff[100];
+		int ret = recv(server, Buff, sizeof(Buff), 0);
+		if(ret != 0)
+		{
+			if(strcmp(Buff, "Password") ==0)
+			{
+				//char pass[100];
+				//strcpy(pass, "Pubwin");
+				if(send(server, "xunshan", 10, 0) == SOCKET_ERROR)
+				{
+					::MessageBox(NULL,_T("发送密码失败!"),NULL,MB_OK);
+					closesocket(server);
+				}
+				else
+				{
+					ret=recv(server,Buff,sizeof(Buff),0);
+					if(ret != 0)
+					{
+
+						SetDlgItemText(IDC_EDIT1,Buff);
+						closesocket(server);
+					}
+
+				}
+			}
+
+
+		}
+
+
+
+
+	}
+	closesocket(server);
+	return ;
+}
+
+void CServerManagerDlg::OnBnClickedBtnRestartxsclient()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	SetDlgItemText(IDC_EDIT1,"");
+
+	CString str_pubwin_server_ip;
+	CString str_Current_Pathfile;
+	GetModuleFileName(NULL,str_Current_Pathfile.GetBufferSetLength(MAX_PATH+1),MAX_PATH);
+	str_Current_Pathfile=str_Current_Pathfile.Left(str_Current_Pathfile.ReverseFind('\\'))+_T("\\config.ini");
+
+	if (!PathFileExists(str_Current_Pathfile))
+	{
+		::MessageBox(NULL,_T("配置文件不存在已经重新生成,请检查配置信息是否正确!!! 程序退出"),NULL,MB_OK|MB_ICONERROR);
+		::WritePrivateProfileString(_T("XSclient"),_T("XSclientIp"),_T("10.30.9.72"),str_Current_Pathfile);
+		return ;
+	}
+	::GetPrivateProfileString(_T("XSclient"),_T("XSclientIp"),NULL,str_pubwin_server_ip.GetBufferSetLength(MAX_PATH+1),MAX_PATH,str_Current_Pathfile);
+	if (str_pubwin_server_ip=="")
+	{
+		::WritePrivateProfileString(_T("XSclient"),_T("XSclientIp"),_T("10.30.9.72"),str_Current_Pathfile);
+		::MessageBox(NULL,_T("配置文件读取失败"),NULL,MB_OK);
+		return ;
+	}
+	WSADATA wsadata;
+	WORD ver=MAKEWORD(2,2);
+	WSAStartup(ver,&wsadata);
+	SOCKET server;
+	server =socket(AF_INET,SOCK_STREAM,0);
+	SOCKADDR_IN serveraddr;
+	serveraddr.sin_family=AF_INET;
+	serveraddr.sin_port=htons(12345);
+
+	serveraddr.sin_addr.S_un.S_addr=inet_addr(str_pubwin_server_ip.GetBuffer());
+	if(connect(server, (SOCKADDR*)&serveraddr, sizeof(serveraddr))<0)
+	{
+		::MessageBox(NULL,_T("套字节初始化失败"),NULL,MB_OK);
+		return ;
+	}
+	else
+	{
+		char Buff[100];
+		int ret = recv(server, Buff, sizeof(Buff), 0);
+		if(ret != 0)
+		{
+			if(strcmp(Buff, "Password") ==0)
+			{
+				//char pass[100];
+				//strcpy(pass, "Pubwin");
+				if(send(server, "XSclient", 10, 0) == SOCKET_ERROR)
+				{
+					::MessageBox(NULL,_T("发送密码失败!"),NULL,MB_OK);
+					closesocket(server);
+				}
+				else
+				{
+					ret=recv(server,Buff,sizeof(Buff),0);
+					if(ret != 0)
+					{
+
+						SetDlgItemText(IDC_EDIT1,Buff);
+						closesocket(server);
+					}
+
+				}
+			}
+
+
+		}
+
+
+
+
+	}
+	closesocket(server);
+	return ;
 }
