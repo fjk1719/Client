@@ -1,9 +1,9 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Client\Client.vcproj", "{D8AF9B3C-245E-4A8F-A973-39CC117230EC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pubwinServer", "..\pubwinServer\pubwinServer\pubwinServer.vcproj", "{77C90159-7BF6-437D-98AA-3E1FAE4443A4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") ="pubwinServer","pubwinServer\pubwinServer\pubwinServer.vcproj", "{77C90159-7BF6-437D-98AA-3E1FAE4443A4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ServerManager", "ServerManager\ServerManager.vcproj", "{3603EFB8-3780-4AA2-9A0B-3AC1AD0D45BE}"
 EndProject
