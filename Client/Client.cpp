@@ -24,10 +24,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	if (!PathFileExists(str_Current_Pathfile))
 	{
 		MessageBox(NULL,_T("配置文件不存在已经重新生成,请检查配置信息是否正确!!! 程序退出"),NULL,MB_OK|MB_ICONERROR);
-		::WritePrivateProfileString(_T("server"),_T("serverIp"),_T("10.30.9.43"),str_Current_Pathfile);
+		::WritePrivateProfileString(_T("XSserver"),_T("XSserverIp"),_T("10.30.9.43"),str_Current_Pathfile);
 		return 0;
 	}
-	::GetPrivateProfileString(_T("server"),_T("serverIp"),NULL,str_pubwin_server_ip.GetBufferSetLength(MAX_PATH+1),MAX_PATH,str_Current_Pathfile);
+	::GetPrivateProfileString(_T("XSserver"),_T("XSserverIp"),NULL,str_pubwin_server_ip.GetBufferSetLength(MAX_PATH+1),MAX_PATH,str_Current_Pathfile);
 	if (str_pubwin_server_ip.IsEmpty())
 	{
 		MessageBox(NULL,_T("配置文件读取失败"),NULL,MB_OK);
@@ -58,10 +58,21 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 			{
 				//char pass[100];
 				//strcpy(pass, "Pubwin");
-				if(send(server, "Pubwin", 10, 0) == SOCKET_ERROR)
+				if(send(server, "xunshan", 10, 0) == SOCKET_ERROR)
 				{
-					MessageBox(NULL,_T("发送密码失败!"),NULL,MB_OK);
+					::MessageBox(NULL,_T("发送密码失败!"),NULL,MB_OK);
 					closesocket(server);
+				}
+				else
+				{
+					ret=recv(server,Buff,sizeof(Buff),0);
+					if(ret != 0)
+					{
+
+						
+						closesocket(server);
+					}
+
 				}
 			}
 

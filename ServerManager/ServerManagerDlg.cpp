@@ -125,7 +125,7 @@ void CServerManagerDlg::OnBnClickedBtnRestartpubserver()
 	serveraddr.sin_addr.S_un.S_addr=inet_addr(str_pubwin_server_ip.GetBuffer());
 	if(connect(server, (SOCKADDR*)&serveraddr, sizeof(serveraddr))<0)
 	{
-		::MessageBox(NULL,_T("套字节初始化失败"),NULL,MB_OK);
+		::MessageBox(NULL,_T("无法连接服务器"),NULL,MB_OK);
 		return ;
 	}
 	else
@@ -203,7 +203,7 @@ void CServerManagerDlg::OnBnClickedBbtnRestartxsserver()
 	serveraddr.sin_addr.S_un.S_addr=inet_addr(str_pubwin_server_ip.GetBuffer());
 	if(connect(server, (SOCKADDR*)&serveraddr, sizeof(serveraddr))<0)
 	{
-		::MessageBox(NULL,_T("套字节初始化失败"),NULL,MB_OK);
+		::MessageBox(NULL,_T("无法连接服务器"),NULL,MB_OK);
 		return ;
 	}
 	else
@@ -280,7 +280,7 @@ void CServerManagerDlg::OnBnClickedBtnRestartxsclient()
 	serveraddr.sin_addr.S_un.S_addr=inet_addr(str_pubwin_server_ip.GetBuffer());
 	if(connect(server, (SOCKADDR*)&serveraddr, sizeof(serveraddr))<0)
 	{
-		::MessageBox(NULL,_T("套字节初始化失败"),NULL,MB_OK);
+		::MessageBox(NULL,_T("无法连接服务器"),NULL,MB_OK);
 		return ;
 	}
 	else
